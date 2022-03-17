@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appbar"
+    android:layout_height="?attr/actionBarSize"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    android:elevation="7dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@null"
+        android:weightSum="5">
+        <androidx.cardview.widget.CardView
+            android:layout_marginStart="10dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/circle_center"
+            android:layout_gravity="center_horizontal"
+            app:cardBackgroundColor="@color/teal_700"
+            app:cardCornerRadius="100dp">
+
+            <ImageView
+                android:id="@+id/userimageappbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:scaleType="fitXY" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:layout_weight="2.5" />
+
+        <EditText
+            android:id="@+id/appbartitle"
+            android:layout_width="wrap_content"
+            android:inputType="textNoSuggestions"
+            android:minWidth="38dp"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnPrimary"
+            android:background="@android:color/transparent"
+            android:textSize="25sp"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:layout_weight="2.4" />
+
+        <ImageView
+            android:id="@+id/search_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_baseline_search_24"
+            android:background="@null"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/menumore"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_baseline_more_vert_24"
+            android:background="@null"
+            android:scaleType="fitXY"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.Toolbar>

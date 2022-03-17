@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/pink"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="25dp"
+    android:padding="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="this is fucking channel"
+            android:background="@null"
+            android:textSize="16sp"
+            />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:weightSum="3"
+        android:orientation="horizontal">
+        <androidx.cardview.widget.CardView
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/circle_center"
+            app:cardBackgroundColor="@color/teal_700"
+            app:cardCornerRadius="100dp">
+
+            <ImageView
+                android:id="@+id/channelimage"
+                android:layout_width="match_parent"
+                android:src="@drawable/chat"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:scaleType="fitXY" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/message"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1.5"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:ellipsize="marquee"
+            android:text="sssssssfwwwfswaas" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:text="awf" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:background="@null"
+            android:orientation="horizontal" />
+
+        <ImageButton
+            android:layout_width="48dp"
+            android:id="@+id/chatbutton"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:src="@drawable/ic_baseline_chat_24"
+            android:scaleType="fitXY"
+            android:contentDescription="TODO"
+            tools:ignore="ContentDescription" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.cardview.widget.CardView>

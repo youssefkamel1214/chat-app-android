@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/appbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <fragment
+        android:id="@+id/channel_frag"
+        android:name="com.example.firebase.ChannelsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="1dp"
+        tools:layout="@layout/fragment_channels"
+        tools:ignore="FragmentTagUsage" />
+    <fragment
+        android:id="@+id/users_frag"
+        android:name="com.example.firebase.UsersFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="1dp"
+        tools:layout="@layout/fragment_users"
+        tools:ignore="FragmentTagUsage" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

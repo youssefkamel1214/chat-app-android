@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Auth_screen">
+
+
+    <include
+        android:id="@+id/included"
+        layout="@layout/appbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></include>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imagegroup"
+                android:background="@null">
+            <androidx.cardview.widget.CardView
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:id="@+id/circle_center"
+                android:layout_gravity="center_horizontal"
+                app:cardBackgroundColor="@color/teal_700"
+                app:cardCornerRadius="100dp">
+                <ImageView
+                    android:id="@+id/userimage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:scaleType="fitXY"></ImageView>
+            </androidx.cardview.widget.CardView>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@null"
+                    android:weightSum="10"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                        android:layout_weight="5"/>
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pickimagefromgallery"
+                        android:background="@null"
+
+                        >
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:scaleType="fitXY"
+                            android:background="@null"
+                            android:src="@drawable/ic_baseline_gallery_24"></ImageView>
+
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="78dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:background="@null"
+                            android:text=" image from gallery"
+                            android:textColor="@color/pink"
+                            tools:ignore="TextContrastCheck"></TextView>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pickimagefromcamera"
+                        android:background="@null"
+                        >
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:scaleType="fitXY"
+                            android:background="@null"
+                            android:src="@drawable/ic_baseline_camera_24"></ImageView>
+
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="78dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:background="@null"
+                            android:text=" image from camera"
+                            android:textColor="@color/pink"
+                            tools:ignore="TextContrastCheck"></TextView>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <EditText
+                android:id="@+id/Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="Email adrres"
+                android:minHeight="48dp"></EditText>
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="user name"
+                android:minHeight="48dp"></EditText>
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:height="50dp"
+                android:drawableStart="@drawable/ic_baseline_visibility_24"
+                android:drawablePadding="10dp"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:padding="10dp"></EditText>
+
+            <Button
+                android:id="@+id/sumbitbutt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttonshape"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/pink"
+                android:text="log in" />
+            <ProgressBar
+                android:id="@+id/auth_loading"
+                android:layout_width="wrap_content"
+                style="?android:attr/progressBarStyle"
+                android:layout_gravity="center_horizontal"
+                android:indeterminateTint="@color/pink"
+                android:background="@null"
+                android:layout_height="wrap_content"></ProgressBar>
+
+            <TextView
+                android:id="@+id/swithc_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@null"
+                android:text="change to sign up"
+                android:textColor="@color/teal_700"
+                android:textSize="18dp"></TextView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
