@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateGroup">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/circle_center"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        app:cardBackgroundColor="@color/teal_700"
+        app:cardCornerRadius="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".2">
+
+        <ImageView
+            android:id="@+id/groupimage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:contentDescription="TODO"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_baseline_group_24"
+            tools:ignore="ContentDescription,HardcodedText" />
+    </androidx.cardview.widget.CardView>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/pickimage"
+        app:layout_constraintTop_toBottomOf="@id/circle_center"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:weightSum="10"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pickimagefromgallery"
+            android:background="@null"
+
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitXY"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_gallery_24" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="78dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:background="@null"
+                android:text=" image from gallery"
+                android:textColor="@color/pink"
+                tools:ignore="TextContrastCheck" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pickimagefromcamera"
+            android:background="@null"
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitXY"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_camera_24"></ImageView>
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="78dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:background="@null"
+                android:text=" image from camera"
+                android:textColor="@color/pink"
+                tools:ignore="TextContrastCheck"></TextView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <EditText
+        android:id="@+id/Name"
+        app:layout_constraintTop_toBottomOf="@+id/pickimage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="20dp"
+        android:hint="groupName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="22sp"
+        android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/creategroup"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/buttonshape"
+        android:backgroundTint="@color/pink"
+        android:text="create group"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias=".95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

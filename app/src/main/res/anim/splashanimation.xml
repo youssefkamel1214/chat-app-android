@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set android:duration="1500" xmlns:android="http://schemas.android.com/apk/res/android">
+<translate
+    android:fromXDelta="-200" android:fromYDelta="-200" android:toXDelta="0"
+    android:toYDelta="0" android:fillAfter="true"/>
+    <alpha
+        android:fromAlpha=".5"
+        android:toAlpha="1"/>
+</set>

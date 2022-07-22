@@ -16,7 +16,8 @@
         android:weightSum="5">
         <androidx.cardview.widget.CardView
             android:layout_marginStart="10dp"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
+            app:layout_constraintDimensionRatio="1:1"
             android:layout_height="match_parent"
             android:id="@+id/circle_center"
             android:layout_gravity="center_horizontal"
@@ -40,14 +41,15 @@
         <EditText
             android:id="@+id/appbartitle"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:importantForAutofill="no"
             android:inputType="textNoSuggestions"
             android:minWidth="38dp"
-            android:layout_height="wrap_content"
+            android:enabled="false"
             android:textColor="?attr/colorOnPrimary"
-            android:background="@android:color/transparent"
             android:textSize="25sp"
-            android:importantForAutofill="no"
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <LinearLayout
             android:layout_width="wrap_content"

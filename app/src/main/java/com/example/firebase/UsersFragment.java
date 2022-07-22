@@ -1,14 +1,15 @@
 package com.example.firebase;
 import static org.chromium.base.ThreadUtils.runOnUiThread;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.firebase.databinding.FragmentUsersBinding;
+import com.google.android.gms.tasks.TaskExecutors;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -16,7 +17,15 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.util.Executors;
+import com.google.type.DateTime;
+
+import org.chromium.base.Log;
+import org.chromium.base.task.TaskExecutor;
+
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -32,9 +41,8 @@ public class UsersFragment extends Fragment {
     private  User user=null;
     private String searcher="";
     private ListenerRegistration ls;
-    private final FirebaseFirestore fs=  FirebaseFirestore.getInstance();
+    private  FirebaseFirestore fs=  FirebaseFirestore.getInstance();
     private UsersAdapter usersAdapter;
-    private BackExecutor bacex=new BackExecutor();
 
     public UsersFragment() {
         // Required empty public constructor
@@ -42,14 +50,31 @@ public class UsersFragment extends Fragment {
 
     public void setUser(User user) {
         this.user = user;
+        get_allusersdata();
         if(usersAdapter!=null)
             usersAdapter.set_user(user);
+
     }
     public void setSearcher(String searcher) {
         this.searcher = searcher;
         usersAdapter.setSearcher(searcher);
     }
 
+    @Override
+    public void onDestroyView() {
+        System.out.println("here");
+        if(ls!=null) {
+            ls.remove();
+        }
+        try {
+            Thread.sleep(150);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ls=null;
+        fs=null;
+        super.onDestroyView();
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,16 +86,16 @@ public class UsersFragment extends Fragment {
        binding.loadingUf.setVisibility(View.VISIBLE);
        binding.text.setVisibility(View.GONE);
        binding.usersRecl.setVisibility(View.GONE);
-        get_allusersdata();
-        return binding.getRoot();
+       return binding.getRoot();
     }
 
     private void inialaize_listhners() {
-        ls=fs.collection("users").addSnapshotListener(bacex, MetadataChanges.INCLUDE,
+        ls=fs.collection("users").addSnapshotListener(Executors.BACKGROUND_EXECUTOR, MetadataChanges.INCLUDE,
                 (value, error) -> {
                     if (error==null){
                         for(DocumentChange dcc:value.getDocumentChanges()){
-                            if(dcc.getDocument().getId().equals(user.getId()))
+                            System.out.println(Calendar.getInstance().getTime());
+                            if(dcc.getDocument().getId().equals(user.getId())&&ls!=null)
                                 continue;
                             switch (dcc.getType()) {
                                 case ADDED:
@@ -115,6 +140,7 @@ public class UsersFragment extends Fragment {
         Map<String,Integer>index=new HashMap<String,Integer>();
         fs.collection("users").get().addOnCompleteListener(task -> {
             if(task.getException()==null){
+                Log.d("on complete", "called" );
                 int i=0;
                 if(task.getResult().isEmpty())
                     return;

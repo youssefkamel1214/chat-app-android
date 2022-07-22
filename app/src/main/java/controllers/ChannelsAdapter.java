@@ -2,10 +2,24 @@ package controllers;
 import static java.util.Collections.swap;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.example.firebase.ChatScreen;
+import com.example.firebase.R;
 import com.example.firebase.databinding.ChannelItemBinding;
 import com.google.firebase.firestore.util.Executors;
+
+import org.chromium.base.task.AsyncTask;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 import models.Channel;
@@ -30,9 +44,11 @@ public class ChannelsAdapter extends RecyclerView.Adapter<ChannelsAdapter.ViewHo
         notifyItemInserted(0);
     }
    public void  delete_channel (Channel channel){
-       channels.remove(indexes.get(channel.getId()).intValue());
-       notifyItemRemoved(indexes.get(channel.getId()));
-       indexes.remove(channel.getId());
+        if(indexes.containsKey(channel.getId())) {
+            channels.remove(indexes.get(channel.getId()).intValue());
+            notifyItemRemoved(indexes.get(channel.getId()));
+            indexes.remove(channel.getId());
+        }
    }
     public void  modify_channel (Channel channel){
             int old_pos=indexes.get(channel.getId());
@@ -42,7 +58,7 @@ public class ChannelsAdapter extends RecyclerView.Adapter<ChannelsAdapter.ViewHo
 
             }
             indexes.put(channel.getId(),0);
-            notifyItemRangeChanged(0, old_pos);
+            notifyItemRangeChanged(0, old_pos+1);
     }
     @NonNull
     @Override
@@ -53,12 +69,39 @@ public class ChannelsAdapter extends RecyclerView.Adapter<ChannelsAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Channel channel=channels.get(position);
-        System.out.println(channel.getImageurl(Userid));
         holder.binding.name.setText(channel.getName(Userid));
-        holder.binding.message.setText(channel.getLastMessage());
-        NetImage netImage=new NetImage(channel.getImageurl(Userid),holder.binding.channelimage);
-        netImage.executeOnExecutor(new BackExecutor());
+        handlelastsentmessge(channel.getLastMessage(),channel.getMessegetybe(),holder.binding.imagetype,holder.binding.message);
+       // holder.binding.message.setText(channel.getLastMessage());
+        DateFormat dateFormat=new SimpleDateFormat("dd-MMM-yyyy");
+        holder.binding.time.setText(dateFormat.format( channel.getLastTime().getTime()));
+        if(!channel.getImageurl(Userid).isEmpty())
+           Glide.with(holder.binding.channelimage).load(channel.getImageurl(Userid)).placeholder(R.drawable.chat).into(holder.binding.channelimage);
+        holder.binding.chatbutton.setOnClickListener(view -> {
+            Intent intent=new Intent(holder.binding.chatbutton.getContext(), ChatScreen.class);
+            intent.putExtra("channelid",channel.getId());
+            intent.putExtra("channelname",channel.getName(Userid));
+            intent.putExtra("userid",Userid);
+            intent.putExtra("channelimage",channel.getImageurl(Userid));
+            holder.binding.chatbutton.getContext().startActivity(intent);
+        });
 
+    }
+
+    private void handlelastsentmessge(String lastMessage, String messegetybe, ImageView imagetype, TextView message) {
+        if(messegetybe.equals("None")||messegetybe.equals("text"))
+            message.setText(lastMessage);
+        else if (messegetybe.equals("audio"))
+        {
+            message.setText("audio was sent");
+            imagetype.setVisibility(View.VISIBLE);
+            imagetype.setImageResource(R.drawable.ic_baseline_audio_24);
+        }
+        else if(messegetybe.equals("image"))
+        {
+            message.setText("image was sent");
+            imagetype.setVisibility(View.VISIBLE);
+            imagetype.setImageResource(R.drawable.ic_baseline_image_24);
+        }
     }
 
     @Override

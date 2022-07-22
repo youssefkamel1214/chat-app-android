@@ -60,17 +60,14 @@ public class Auth_screen extends AppCompatActivity {
         make_listhen_to_icon();
         handle_switching();
         handle_image_pickng_button();
-        binding.sumbitbutt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.authLoading.setVisibility(View.VISIBLE);
-                binding.sumbitbutt.setVisibility(View.GONE);
-               if (login==true)
-                     handle_sumbiting_login();
-               else
-                    handle_sumbiting_signup();
+        binding.sumbitbutt.setOnClickListener(view -> {
+            binding.authLoading.setVisibility(View.VISIBLE);
+            binding.sumbitbutt.setVisibility(View.GONE);
+           if (login==true)
+                 handle_sumbiting_login();
+           else
+                handle_sumbiting_signup();
 
-            }
         });
 
     }
@@ -105,7 +102,6 @@ public class Auth_screen extends AppCompatActivity {
         {
 
             Bitmap bitmap = null;
-            Log.d(TAG, "anahena"+String.valueOf( requestCode));
             if(requestCode==1&&data.getData()!=null) {
                 try {
                     bitmap=MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
@@ -152,7 +148,6 @@ public class Auth_screen extends AppCompatActivity {
         System.err.println("execptrion="+exception);
         if (exception==null) {
             Intent intent=new Intent(Auth_screen.this,MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
             startActivity(intent);
             this.finish();
         }else

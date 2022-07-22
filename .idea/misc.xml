@@ -9,19 +9,31 @@
         <entry key="..\:/study/android/firebase/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.21875" />
         <entry key="..\:/study/android/firebase/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.10648148148148148" />
         <entry key="..\:/study/android/firebase/app/src/main/res/drawable/ic_baseline_visibility_24.xml" value="0.1537037037037037" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/drawable/messegeshape.xml" value="0.21770833333333334" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/drawable/messegeshapeleft.xml" value="0.221875" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/drawable/messegeshaperight.xml" value="0.21770833333333334" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/drawable/messegetextinput.xml" value="0.21770833333333334" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/drawable/progress.xml" value="0.21770833333333334" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/drawable/talldiv.xml" value="0.31197916666666664" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/drawable/thumb.xml" value="0.21770833333333334" />
         <entry key="..\:/study/android/firebase/app/src/main/res/layout/Channel_item.xml" value="0.1" />
-        <entry key="..\:/study/android/firebase/app/src/main/res/layout/activity_auth_screen.xml" value="0.1" />
-        <entry key="..\:/study/android/firebase/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/layout/activity_auth_screen.xml" value="0.22" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/layout/activity_chat_screen.xml" value="0.33" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/layout/activity_create_group.xml" value="0.25" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/layout/activity_profilepage.xml" value="0.36666666666666664" />
         <entry key="..\:/study/android/firebase/app/src/main/res/layout/activity_splash_screen.xml" value="0.22" />
-        <entry key="..\:/study/android/firebase/app/src/main/res/layout/appbar.xml" value="0.22" />
-        <entry key="..\:/study/android/firebase/app/src/main/res/layout/channel_item.xml" value="0.18" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/layout/appbar.xml" value="0.33" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/layout/channel_item.xml" value="0.33" />
         <entry key="..\:/study/android/firebase/app/src/main/res/layout/fragment_blank.xml" value="0.20520833333333333" />
         <entry key="..\:/study/android/firebase/app/src/main/res/layout/fragment_channel.xml" value="0.15" />
         <entry key="..\:/study/android/firebase/app/src/main/res/layout/fragment_channels.xml" value="0.1" />
         <entry key="..\:/study/android/firebase/app/src/main/res/layout/fragment_item.xml" value="0.19635416666666666" />
         <entry key="..\:/study/android/firebase/app/src/main/res/layout/fragment_item_list.xml" value="0.16" />
         <entry key="..\:/study/android/firebase/app/src/main/res/layout/fragment_users.xml" value="0.1" />
-        <entry key="..\:/study/android/firebase/app/src/main/res/layout/users_item.xml" value="0.18" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/layout/messegebubble.xml" value="0.33" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/layout/messegecontent.xml" value="0.20729166666666668" />
+        <entry key="..\:/study/android/firebase/app/src/main/res/layout/users_item.xml" value="0.33" />
         <entry key="..\:/study/android/firebase/app/src/main/res/layout/users_show.xml" value="0.1" />
         <entry key="..\:/study/android/firebase/app/src/main/res/menu/popmenu.xml" value="0.20260416666666667" />
       </map>

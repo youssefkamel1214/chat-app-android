@@ -9,6 +9,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="75dp"
+        android:id="@+id/middleimage"
+
         android:layout_height="75dp"
         android:layout_gravity="center_horizontal"
         app:cardBackgroundColor="@color/teal_700"
@@ -23,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/chat"
-            android:scaleType="fitXY"></ImageView>
+            android:scaleType="fitXY" />
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -35,19 +37,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:layout_gravity="center_vertical"
             android:background="@null"
-            android:text="loading compents"></TextView>
+            android:text="loading compents" />
+
         <ProgressBar
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:background="@null"
             style="?android:attr/progressBarStyle"
             android:indeterminateTint="@color/pink"
-            android:layout_height="wrap_content"></ProgressBar>
+            android:layout_height="wrap_content" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

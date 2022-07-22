@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu  xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/logout"
-        android:icon="@drawable/chat"
-        
-        android:title="log out" />
+        android:title="log out"
+        android:icon="@drawable/ic_baseline_logout_24"
+        />
+    <item
+        android:id="@+id/group"
+        android:title="create group"
+        android:icon="@drawable/ic_baseline_group_24"
+        />
 </menu>

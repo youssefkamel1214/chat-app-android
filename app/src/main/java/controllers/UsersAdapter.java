@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.firebase.databinding.ChannelItemBinding;
 import com.example.firebase.databinding.UsersItemBinding;
 import com.google.firebase.firestore.util.Executors;
@@ -38,9 +39,11 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
         notifyItemInserted(users.size()-1);
     }
     public void  delete_User (User user){
-        users.remove(indexes.get(user.getId()).intValue());
-        notifyItemRemoved(indexes.get(user.getId()));
-        indexes.remove(user.getId());
+        if(indexes.containsKey(user.getId())) {
+            users.remove(indexes.get(user.getId()).intValue());
+            notifyItemRemoved(indexes.get(user.getId()));
+            indexes.remove(user.getId());
+        }
     }
     public void  modify_User (User user){
 
@@ -54,7 +57,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(UsersItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
+            return new ViewHolder(UsersItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
     }
 
     @Override
@@ -64,8 +67,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
             holder.binding.MainCard.setVisibility(View.VISIBLE);
           if( ((BitmapDrawable)holder.binding.userimage.getDrawable())==null||
                  !holder.binding.email.getText().equals(another_user.getEmail())){
-            NetImage netImage=new NetImage(another_user.getImageUrl(),holder.binding.userimage);
-            netImage.executeOnExecutor(Executors.BACKGROUND_EXECUTOR);
+                  Glide.with(holder.binding.userimage).load(another_user.getImageUrl()).into(holder.binding.userimage);
           }
             holder.binding.email.setText(another_user.getEmail());
             holder.binding.username.setText(another_user.getUserName());
@@ -77,7 +79,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
                         addChannel.executeOnExecutor(backExecutor);
                     });
             holder.binding.chat.setOnClickListener(another_user.getUsers().contains(user.getId())? view -> {
-                System.out.println("i am with you bitch");
+                System.out.println("i am with you");
             }:null);
         }
         else {

@@ -2,7 +2,6 @@ package com.example.firebase;
 
 import static org.chromium.base.ThreadUtils.runOnUiThread;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +19,6 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.util.Executors;
-
-import org.chromium.base.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,9 +56,9 @@ public class ChannelsFragment extends Fragment {
     @Override
     public void onDestroy() {
         ls.remove();
+        ls=null;
         super.onDestroy();
     }
-
     private void make_initialize_listeners() {
         ls= fs.collection("chat_channels").whereArrayContains("users", Userid).addSnapshotListener(Executors.BACKGROUND_EXECUTOR, MetadataChanges.INCLUDE, (value, error) -> {
             if (error==null){
@@ -73,14 +70,16 @@ public class ChannelsFragment extends Fragment {
                                         Timestamp timestamp=(Timestamp) dc.get("lasttime");
                                         Calendar calendar=Calendar.getInstance();
                                         calendar.setTime(timestamp.toDate());
-                                        Channel c=new Channel(dc.getId(),(String) dc.get("lastmessege"),calendar,
+                                        Channel c=new Channel(dc.getId(),(String) dc.get("lastmessege"),(String) dc.get("messagetybe"),calendar,
                                                 (ArrayList<String>) dc.get("users"),(ArrayList<String>)dc.get("usersnames"),
                                                 (ArrayList<String>) dc.get("imagesurls"));
                                         if(dc.contains("name")){
                                             c.setName((String) dc.get("name"));
                                             c.setImageurl((String) dc.get("ImageUrl"));
+                                            c.setAdminid((String) dc.get("Adminid"));
                                         }
                                         channelsAdapter.add_Channel(c);
+                                        set_visbality(channelsAdapter.getItemCount()==0);
                                     }
                             );
                             break;
@@ -90,14 +89,18 @@ public class ChannelsFragment extends Fragment {
                                         Timestamp timestamp=(Timestamp) dc.get("lasttime");
                                         Calendar calendar=Calendar.getInstance();
                                         calendar.setTime(timestamp.toDate());
-                                        Channel c=new Channel(dc.getId(),(String) dc.get("lastmessage"),calendar,
+                                        Channel c=new Channel(dc.getId(),(String) dc.get("lastmessege"),(String) dc.get("messagetybe"),calendar,
                                                 (ArrayList<String>) dc.get("users"),(ArrayList<String>)dc.get("usersnames"),
                                                 (ArrayList<String>) dc.get("imagesurls"));
+
                                         if(dc.contains("name")){
                                             c.setName((String) dc.get("name"));
                                             c.setImageurl((String) dc.get("imageurl"));
+                                            c.setAdminid((String) dc.get("Adminid"));
+
                                         }
                                         channelsAdapter.modify_channel(c);
+                                        set_visbality(channelsAdapter.getItemCount()==0);
                                     }
                             );                            break;
                         case REMOVED:
@@ -106,21 +109,23 @@ public class ChannelsFragment extends Fragment {
                                         Timestamp timestamp=(Timestamp) dc.get("lasttime");
                                         Calendar calendar=Calendar.getInstance();
                                         calendar.setTime(timestamp.toDate());
-                                        Channel c=new Channel(dc.getId(),(String) dc.get("lastmessage"),calendar,
-                                                (ArrayList<String>) dc.get("users"),
-                                                (ArrayList<String>)dc.get("usersnames"),
+                                        Channel c=new Channel(dc.getId(),(String) dc.get("lastmessege"),(String) dc.get("messagetybe"),calendar,
+                                                (ArrayList<String>) dc.get("users"),(ArrayList<String>)dc.get("usersnames"),
                                                 (ArrayList<String>) dc.get("imagesurls"));
                                         if(dc.contains("name")){
                                             c.setName((String) dc.get("name"));
                                             c.setImageurl((String) dc.get("imageurl"));
+                                            c.setAdminid((String) dc.get("Adminid"));
+
                                         }
                                         channelsAdapter.delete_channel(c);
+                                        set_visbality(channelsAdapter.getItemCount()==0);
+
                                     }
                             );                            break;
                         default:
                             break;
                     }
-                    set_visbality(channelsAdapter.getItemCount()==0);
                 }
             }
         });
@@ -129,7 +134,7 @@ public class ChannelsFragment extends Fragment {
     private void get_channels_data() {
         ArrayList<Channel>channels=new ArrayList<Channel>();
         Map<String,Integer> indexes=new HashMap<String,Integer>();
-        fs.collection("chat_channels").whereArrayContains("users", Userid).get().
+      fs.collection("chat_channels").whereArrayContains("users", Userid).get().
                 addOnCompleteListener(task -> {
             if(task.getException()==null){
                 if(task.getResult().isEmpty()){
@@ -140,9 +145,8 @@ public class ChannelsFragment extends Fragment {
                         Timestamp timestamp=(Timestamp) dc.get("lasttime");
                         Calendar calendar=Calendar.getInstance();
                         calendar.setTime(timestamp.toDate());
-                        Channel c=new Channel(dc.getId(),(String) dc.get("lastmessege"),calendar,
-                                (ArrayList<String>) dc.get("users"),
-                                (ArrayList<String>)dc.get("usersnames"),
+                        Channel c=new Channel(dc.getId(),(String) dc.get("lastmessege"),(String) dc.get("messagetybe"),calendar,
+                                (ArrayList<String>) dc.get("users"),(ArrayList<String>)dc.get("usersnames"),
                                 (ArrayList<String>) dc.get("imagesurls"));
                         if(dc.contains("name")){
                             c.setName((String) dc.get("name"));
@@ -163,13 +167,14 @@ public class ChannelsFragment extends Fragment {
                        indexes.put(channels.get(i).getId(), i);
                    }
                 }
-                    channelsAdapter=new ChannelsAdapter(channels, Userid,indexes);
-                    binding.progressCircular.setVisibility(View.GONE);
-                    binding.channelsRecl.setAdapter(channelsAdapter);
-                    make_initialize_listeners();
-                    set_visbality(channels.isEmpty());
             }
-        });
+            set_visbality(channels.isEmpty());
+            make_initialize_listeners();
+                });
+
+        channelsAdapter=new ChannelsAdapter(channels, Userid,indexes);
+        binding.progressCircular.setVisibility(View.GONE);
+        binding.channelsRecl.setAdapter(channelsAdapter);
     }
     private void set_visbality(boolean empty) {
         if (empty){

@@ -12,7 +12,7 @@
         android:id="@+id/included"
         layout="@layout/appbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></include>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -46,12 +46,15 @@
                 android:layout_gravity="center_horizontal"
                 app:cardBackgroundColor="@color/teal_700"
                 app:cardCornerRadius="100dp">
+
                 <ImageView
                     android:id="@+id/userimage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:scaleType="fitXY"></ImageView>
+                    android:scaleType="fitXY"
+                    android:contentDescription="TODO"
+                    tools:ignore="ContentDescription,HardcodedText" />
             </androidx.cardview.widget.CardView>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -71,12 +74,13 @@
                         android:background="@null"
 
                         >
+
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:scaleType="fitXY"
                             android:background="@null"
-                            android:src="@drawable/ic_baseline_gallery_24"></ImageView>
+                            android:src="@drawable/ic_baseline_gallery_24" />
 
                         <TextView
                             android:layout_marginLeft="5dp"
@@ -86,7 +90,7 @@
                             android:background="@null"
                             android:text=" image from gallery"
                             android:textColor="@color/pink"
-                            tools:ignore="TextContrastCheck"></TextView>
+                            tools:ignore="TextContrastCheck" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -158,6 +162,7 @@
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/pink"
                 android:text="log in" />
+
             <ProgressBar
                 android:id="@+id/auth_loading"
                 android:layout_width="wrap_content"
@@ -165,7 +170,7 @@
                 android:layout_gravity="center_horizontal"
                 android:indeterminateTint="@color/pink"
                 android:background="@null"
-                android:layout_height="wrap_content"></ProgressBar>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/swithc_state"
@@ -175,7 +180,8 @@
                 android:background="@null"
                 android:text="change to sign up"
                 android:textColor="@color/teal_700"
-                android:textSize="18dp"></TextView>
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>
 

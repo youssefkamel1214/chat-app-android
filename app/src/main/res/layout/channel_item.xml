@@ -29,7 +29,7 @@
         android:weightSum="3"
         android:orientation="horizontal">
         <androidx.cardview.widget.CardView
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginEnd="10dp"
             android:id="@+id/circle_center"
@@ -45,6 +45,12 @@
                 android:scaleType="fitXY" />
         </androidx.cardview.widget.CardView>
 
+        <ImageView
+            android:id="@+id/imagetype"
+            android:layout_width="30dp"
+            android:visibility="gone"
+            android:layout_height="30dp" android:layout_gravity="center"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,34 +61,25 @@
             android:background="@null"
             android:ellipsize="marquee"
             android:text="sssssssfwwwfswaas" />
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/time"
             android:layout_gravity="center_vertical"
             android:background="@null"
+            android:layout_weight="1.5"
             android:text="awf" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:background="@null"
-            android:orientation="horizontal" />
-
         <ImageButton
-            android:layout_width="48dp"
             android:id="@+id/chatbutton"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
             android:background="@null"
-            android:src="@drawable/ic_baseline_chat_24"
             android:scaleType="fitXY"
-            android:contentDescription="TODO"
-            tools:ignore="ContentDescription" />
+            android:src="@drawable/ic_baseline_chat_24"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
     </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>

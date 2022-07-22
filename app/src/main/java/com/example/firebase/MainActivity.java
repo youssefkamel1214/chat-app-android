@@ -1,5 +1,4 @@
 package com.example.firebase;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -11,10 +10,10 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
-import android.widget.Switch;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.example.firebase.databinding.ActivityMainBinding;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -23,17 +22,16 @@ import com.google.firebase.firestore.MetadataChanges;
 import java.util.ArrayList;
 
 import controllers.BackExecutor;
-import controllers.NetImage;
 import models.User;
 
 public class MainActivity extends AppCompatActivity  {
     private ActivityMainBinding binding;
     private  FirebaseAuth firebaseAuth =FirebaseAuth.getInstance();
     private FirebaseFirestore firebaseFirestore =FirebaseFirestore.getInstance();
-    private NetImage netImage=null;
     private User user;
     private ListenerRegistration ls;
     private UsersFragment usersFragment;
+    private ChannelsFragment channelsFragment;
     private boolean searchmod=false;
     private TextWatcher textWatcher;
     @Override
@@ -43,29 +41,58 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_splash_screen);
         usersFragment=(UsersFragment)
         getSupportFragmentManager().findFragmentById(R.id.users_frag);
-        binding.appbar.menumore.setOnClickListener(view -> {
-                  PopupMenu popupMenu=new PopupMenu(MainActivity.this, view);
-                  popupMenu.inflate(R.menu.popmenu);
-                  popupMenu.show();
-
-        });
+        channelsFragment=(ChannelsFragment)
+        getSupportFragmentManager().findFragmentById(R.id.channel_frag);
+        popupmenuinalize();
         handling_listened_user_update();
         Listhen_searchbar_clicked();
         getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager()
                 .findFragmentById(R.id.users_frag)).commit();
-
+        handleimageclick();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.logout){
-            Intent intent=new Intent(MainActivity.this,Auth_screen.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+    private void handleimageclick() {
+        binding.appbar.userimageappbar.setOnClickListener(view -> {
+            Intent intent=new Intent(MainActivity.this,profilepage.class);
+            intent.putExtra("username", user.getUserName());
+            intent.putExtra("email", user.getEmail());
+            intent.putExtra("imageurl", user.getImageUrl());
             startActivity(intent);
-            this.finish();
-            firebaseAuth.signOut();
-        }
-        return super.onOptionsItemSelected(item);
+        });
+    }
+
+    private void popupmenuinalize() {
+        binding.appbar.menumore.setOnClickListener(view -> {
+                  PopupMenu popupMenu=new PopupMenu(MainActivity.this, view);
+                  popupMenu.inflate(R.menu.popmenu);
+                  popupMenu.setOnMenuItemClickListener(menuItem -> {
+                        if(menuItem.getItemId()==R.id.logout){
+                            Intent intent=new Intent(MainActivity.this,Auth_screen.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+                            startActivity(intent);
+                            finish();
+                            firebaseAuth.signOut();
+                        }
+                        else if(menuItem.getItemId()==R.id.group)
+                        {
+                            Intent intent=new Intent(MainActivity.this,CreateGroup.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+                            startActivity(intent);
+                        }
+                        return false;
+                  });
+                  popupMenu.setForceShowIcon(true);
+                  popupMenu.show();
+
+        });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        searchmod^=true;
+        changetitlebar();
     }
 
     private void Listhen_searchbar_clicked() {
@@ -77,9 +104,15 @@ public class MainActivity extends AppCompatActivity  {
             else
                 manager.popBackStack();
             searchmod^=true;
+            changetitlebar();
+        });
+    }
+
+    private void changetitlebar() {
             if(searchmod) {
                 binding.appbar.appbartitle.setText("");
                 binding.appbar.appbartitle.setInputType(InputType.TYPE_CLASS_TEXT);
+                binding.appbar.appbartitle.setEnabled(true);
                 textWatcher=new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -95,13 +128,15 @@ public class MainActivity extends AppCompatActivity  {
                     }
                 };
                 binding.appbar.appbartitle.addTextChangedListener(textWatcher);
+
             }else {
+
                 binding.appbar.appbartitle.setText(user.getUserName());
+                binding.appbar.appbartitle.setEnabled(false);
                 binding.appbar.appbartitle.setInputType(InputType.TYPE_NULL);
                 binding.appbar.appbartitle.removeTextChangedListener(textWatcher);
                 usersFragment.setSearcher("");
             }
-        });
     }
 
     private void handling_listened_user_update() {
@@ -122,14 +157,13 @@ public class MainActivity extends AppCompatActivity  {
                                                (String) value.get("imageurl"),
                                                (ArrayList<String>)value.get("users"),
                                                (ArrayList<String>)value.get("channels") );
+                                       if(usersFragment!=null)
                                        usersFragment.setUser(user);
-                                       if(netImage!=null)
-                                           return;
-                                       netImage = new NetImage(user.getImageUrl(),
-                                               binding.appbar.userimageappbar);
-                                       netImage.executeOnExecutor(new BackExecutor());
+                                       Glide.with(this).load(user.getImageUrl()).placeholder(R.drawable.chat).into(binding.appbar.userimageappbar);
+                                       if(searchmod==false)
                                        binding.appbar.appbartitle.
                                                setText(user.getUserName());
+
                                    });
                                }
                         });
@@ -138,8 +172,11 @@ public class MainActivity extends AppCompatActivity  {
 
     @Override
     protected void onDestroy() {
+        usersFragment=null;
+        channelsFragment=null;
         ls.remove();
         ls=null;
+        firebaseAuth=null;
         super.onDestroy();
     }
 

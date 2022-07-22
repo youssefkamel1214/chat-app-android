@@ -43,7 +43,8 @@ public class AddChannel extends AsyncTask<Exception> {
         imageurl.add(u2.getImageUrl());
         Map<String,Object>data=new HashMap<String,Object>();
         data.put("lasttime", Timestamp.now());
-        data.put("lastmessege", "nothing yet");
+        data.put("lastmessege", "there is no messeges yet");
+        data.put("messagetybe", "None");
         data.put("users",users);
         data.put("usersnames",usersnames);
         data.put("imagesurls",imageurl);
@@ -94,10 +95,8 @@ public class AddChannel extends AsyncTask<Exception> {
     protected void onPostExecute(Exception exception) {
           if(exception!=null)
           {
-              Toast.makeText(context, "hi bitch e="+exception.getMessage(),Toast.LENGTH_LONG).show();
-          }
-          else {
-//              Toast.makeText(context, "ana rbna nsrny",Toast.LENGTH_LONG).show();
+              Toast.makeText(context, "there was exception="+exception.getMessage(),Toast.LENGTH_LONG).show();
+
           }
     }
 }
